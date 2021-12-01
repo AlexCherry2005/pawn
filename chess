@@ -1,20 +1,23 @@
-class Bishop: public Figure{
-    public:
-    Bishop(string a_color){
-        this->name = "bishop";
-        if (a_color == "white" || a_color == "black"){
-        this->color = a_color;
+class Peshka : public GamePiece
+{
+public:
+    Peshka(char cColor) : GamePiece(cColor) {}
+    ~Peshka() {}
+private:
+    virtual char GetPiece() {
+        return 'N';
+    }
+    bool AreSquaresLegal(int x, int y, int z, int iDestCol, GamePiece* GameBoard[8][8]) {
+        if ((y == w + 1) || (y == w - 1)) {
+            if ((x == z + 2) || (x == z - 2)) {
+                return true;
+            }
         }
-    } // Конструктор только с цветом
-    Bishop(string a_color, int a_x, int a_y){
-        this->name = "bishop";
-        if (a_color == "white" || a_color == "black"){
-        this->color = a_color;
+        if ((y == w + 2) || (y == w - 2)) {
+            if ((x == z + 1) || (x == z - 1)) {
+                return true;
+            }
         }
-        this-> x = a_x;
-        this-> y = a_y;
-    } // Конструктор с базовыми координатами
-    bool can_move(int x1, int y1){
-        return abs(this->y - y1) == abs(this-> x - x1);
-    } // Может ли перейти на заданные новые координаты
+        return false;
+    }
 };
